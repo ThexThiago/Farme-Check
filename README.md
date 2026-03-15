@@ -1,11 +1,11 @@
-# FarmaCheck - API de Gestao de Medicamentos em Farmacias Publicas
+# Farm Check - Sistema de Gestão de Medicamentos em Farmácias Públicas
 
-Sistema para verificacao de disponibilidade de medicamentos em farmacias publicas
+Sistema para verificação de disponibilidade de medicamentos em farmácias públicas
 ---
 
 ## Objetivo do Projeto
 
-O FarmaCheck permite que pacientes consultem a disponibilidade de medicamentos em farmacias publicas. Quando um medicamento nao esta disponivel
+O Farm Check permite que pacientes consultem a disponibilidade de medicamentos em farmacias publicas. Quando um medicamento nao esta disponivel
 
 Principais funcionalidades:
 - Cadastro e gerenciamento de medicamentos (administrador)
@@ -31,7 +31,6 @@ Spring Boot API (Java 21) -- porta 8080
 - **Java 21**
 - **Spring Boot 3.5.7**
 - **Spring Data JPA / Hibernate**
-- **Spring Security + JWT** (auth0 java-jwt)
 - **H2** (banco de dados)
 ---
 
@@ -47,10 +46,10 @@ Spring Boot API (Java 21) -- porta 8080
 
 
 ### Medicamento
-| Campo          | Tipo          | Descricao                          |
+| Campo          | Tipo          | Preço                              |
 |----------------|---------------|------------------------------------|
 | id             | int           | Identificador unico (sequence)     |
 | nome           | String        | Nome do medicamento                |
 | descricao      | String        | Principio ativo                    |
-| preco          | String        | Descrição                          |
+| preco          | String        | valor do medicamento               |
 | fornecedor     | String        | Laboratorio fabricante             |
