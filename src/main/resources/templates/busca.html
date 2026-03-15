@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Buscar Produto</title>
+</head>
+
+<body>
+
+<h2>Buscar Produto</h2>
+
+<form action="/buscar" method="get">
+
+    <input type="text" name="nome" placeholder="Digite o produto">
+
+    <button type="submit">Buscar</button>
+
+</form>
+
+<hr>
+
+<h3>Resultado</h3>
+
+<ul>
+    <li th:each="produto : ${produtos}"
+        th:text="${produto}">
+    </li>
+</ul>
+
+</body>
+</html>
