@@ -37,7 +37,7 @@ public class MedicamentoController {
 
         repository.save(medicamento);
 
-        return "Medicamento Cadastrado com Sucesso !! ";
+        return "cadastro-produto-sucesso";
     }
         @GetMapping("/buscar")
         public String buscarProduto(@RequestParam(name="nome", required=false) String nome, Model model) {
@@ -46,10 +46,11 @@ public class MedicamentoController {
 
         var medicamento = repository.findByNomeMedicamento(nome);
             if(medicamento != null){
-                produtos.add(medicamento.getNomeMedicamento());
+                var mensagem  =  "O Medicamento "+ medicamento.getNomeMedicamento() + " já está disponível, Procure a unidade de farmácia para retirada. ";
+                produtos.add(mensagem);
             }
             else{
-                produtos.add("Medicamento não encontrado");
+                produtos.add("Medicamento não disponível");
             }
 
             model.addAttribute("produtos", produtos);
