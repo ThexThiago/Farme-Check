@@ -53,3 +53,9 @@ Spring Boot API (Java 21) -- porta 8080
 | descricao      | String        | Principio ativo                    |
 | preco          | String        | valor do medicamento               |
 | fornecedor     | String        | Laboratorio fabricante             |
+
+
+## ✨ Nova Funcionalidades
+
+- [🔧 TODO] **Cadastro/Autenticação** de usuários com perfis e permissões.  
+- [🔧 TODO] **Relatórios de controle com status de todos medicamento** exportáveis (PDF/CSV).
