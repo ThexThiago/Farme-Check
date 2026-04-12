@@ -1,33 +1,40 @@
 package com.thiago.farme_check.controller;
+
 import org.springframework.ui.Model;
 import com.thiago.farme_check.entity.Medicamento;
 import com.thiago.farme_check.repository.MedicamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class MedicamentoController {
+
     @Autowired
     MedicamentoRepository repository;
 
-    @GetMapping ("/consulta-medicamento")
-    public String pesquisa (){
+    @GetMapping("/consulta-medicamento")
+    public String pesquisa() {
         return "busca";
     }
 
-    @GetMapping ("/cadastro-medicamento")
-    public String  cadastroMedicamento(){
+    @GetMapping("/cadastro-medicamento")
+    public String cadastroMedicamento() {
         return "cadastro-produto";
     }
 
+    // 🔥 COM DISPONIBILIDADE
     @PostMapping("efetuar-cadastro-produto")
-    public String efetuarCadastro(String nome, Double preco, String descricao, String fornecedor){
+    public String efetuarCadastro(
+            String nome,
+            Double preco,
+            String descricao,
+            String fornecedor,
+            @RequestParam(required = false) Boolean disponivel
+    ) {
 
         Medicamento medicamento = new Medicamento();
         medicamento.setNomeMedicamento(nome);
@@ -35,28 +42,36 @@ public class MedicamentoController {
         medicamento.setDescricao(descricao);
         medicamento.setFornecedor(fornecedor);
 
+        // 🔥 TRATAMENTO DO CHECKBOX
+        medicamento.setDisponivel(disponivel != null && disponivel);
+
         repository.save(medicamento);
 
         return "cadastro-produto-sucesso";
     }
-        @GetMapping("/buscar")
-        public String buscarProduto(@RequestParam(name="nome", required=false) String nome, Model model) {
+
+    // 🔍 BUSCA COM DISPONIBILIDADE
+    @GetMapping("/buscar")
+    public String buscarProduto(@RequestParam(name = "nome", required = false) String nome, Model model) {
 
         List<String> produtos = new ArrayList<>();
 
         var medicamento = repository.findByNomeMedicamento(nome);
-            if(medicamento != null){
-                var mensagem  =  "O Medicamento "+ medicamento.getNomeMedicamento() + " já está disponível, Procure a unidade de farmácia para retirada. ";
-                produtos.add(mensagem);
-            }
-            else{
-                produtos.add("Medicamento não disponível");
+
+        if (medicamento != null) {
+
+            if (medicamento.isDisponivel()) {
+                produtos.add("O medicamento " + medicamento.getNomeMedicamento() + " está disponível.");
+            } else {
+                produtos.add("O medicamento " + medicamento.getNomeMedicamento() + " NÃO está disponível.");
             }
 
-            model.addAttribute("produtos", produtos);
+        } else {
+            produtos.add("Medicamento não encontrado.");
+        }
+
+        model.addAttribute("produtos", produtos);
+
         return "busca";
     }
 }
-
-
-

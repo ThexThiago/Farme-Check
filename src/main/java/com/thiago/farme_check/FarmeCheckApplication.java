@@ -10,4 +10,5 @@ public class FarmeCheckApplication {
 		SpringApplication.run(FarmeCheckApplication.class, args);
 	}
 
+
 }

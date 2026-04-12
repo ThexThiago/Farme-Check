@@ -13,6 +13,7 @@ public class Medicamento {
     private String descricao;
     private String fornecedor;
     private Double preco;
+    private boolean disponivel;
 
     public Long getId() {
         return id;
@@ -46,11 +47,19 @@ public class Medicamento {
         this.fornecedor = fornecedor;
     }
 
-    public double getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
     }
 }
