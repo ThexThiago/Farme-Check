@@ -26,23 +26,25 @@ public class MedicamentoController {
         return "cadastro-produto";
     }
 
-    // 🔥 COM DISPONIBILIDADE
     @PostMapping("efetuar-cadastro-produto")
     public String efetuarCadastro(
             String nome,
             Double preco,
             String descricao,
             String fornecedor,
+            String unidadeFarmacia,
             @RequestParam(required = false) Boolean disponivel
     ) {
 
         Medicamento medicamento = new Medicamento();
+
         medicamento.setNomeMedicamento(nome);
         medicamento.setPreco(preco);
         medicamento.setDescricao(descricao);
         medicamento.setFornecedor(fornecedor);
 
-        // 🔥 TRATAMENTO DO CHECKBOX
+        // 🔥 NOVOS CAMPOS
+        medicamento.setUnidadeFarmacia(unidadeFarmacia);
         medicamento.setDisponivel(disponivel != null && disponivel);
 
         repository.save(medicamento);
@@ -50,9 +52,11 @@ public class MedicamentoController {
         return "cadastro-produto-sucesso";
     }
 
-    // 🔍 BUSCA COM DISPONIBILIDADE
     @GetMapping("/buscar")
-    public String buscarProduto(@RequestParam(name = "nome", required = false) String nome, Model model) {
+    public String buscarProduto(
+            @RequestParam(name = "nome", required = false) String nome,
+            Model model
+    ) {
 
         List<String> produtos = new ArrayList<>();
 
@@ -61,12 +65,25 @@ public class MedicamentoController {
         if (medicamento != null) {
 
             if (medicamento.isDisponivel()) {
-                produtos.add("O medicamento " + medicamento.getNomeMedicamento() + " está disponível.");
+
+                produtos.add(
+                        "O medicamento " +
+                                medicamento.getNomeMedicamento() +
+                                " está disponível na unidade: " +
+                                medicamento.getUnidadeFarmacia()
+                );
+
             } else {
-                produtos.add("O medicamento " + medicamento.getNomeMedicamento() + " NÃO está disponível.");
+
+                produtos.add(
+                        "O medicamento " +
+                                medicamento.getNomeMedicamento() +
+                                " NÃO está disponível no momento."
+                );
             }
 
         } else {
+
             produtos.add("Medicamento não encontrado.");
         }
 

@@ -4,16 +4,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
 @Entity
 public class Medicamento {
+
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nomeMedicamento;
     private String descricao;
     private String fornecedor;
     private Double preco;
     private boolean disponivel;
+
+    // 🔥 NOVO CAMPO
+    private String unidadeFarmacia;
 
     public Long getId() {
         return id;
@@ -61,5 +67,14 @@ public class Medicamento {
 
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
+    }
+
+    // 🔥 GET E SET NOVOS
+    public String getUnidadeFarmacia() {
+        return unidadeFarmacia;
+    }
+
+    public void setUnidadeFarmacia(String unidadeFarmacia) {
+        this.unidadeFarmacia = unidadeFarmacia;
     }
 }

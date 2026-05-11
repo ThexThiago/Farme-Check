@@ -1,39 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
-    <title>farme-check</title>
+    <title>Farm Check</title>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
+
 <body>
 
 <div class="container">
-    <h2>Tela de Produtos</h2>
+
+    <h2>Cadastro de Medicamentos</h2>
+
     <form action="/efetuar-cadastro-produto" method="post">
+
         <div class="form-group">
-            <label for="nome-produto">Digite o nome do remédio:</label>
-            <input type="nome" class="form-control" id="nome-produto" placeholder="Enter produto" name="nome">
+            <label>Nome do medicamento:</label>
+
+            <input type="text"
+                   class="form-control"
+                   placeholder="Digite o nome do medicamento"
+                   name="nome">
         </div>
+
         <div class="form-group">
-            <label for="preco">Preço:</label>
-            <input type="number" class="form-control" id="preco" placeholder="Enter preco" name="preco">
+            <label>Preço:</label>
+
+            <input type="number"
+                   class="form-control"
+                   placeholder="Digite o preço"
+                   name="preco">
         </div>
+
         <div class="form-group">
-            <label for="descricao">Descrição:</label>
-            <input type="descricao" class="form-control" id="descricao" placeholder="Enter descricao" name="descricao">
+            <label>Descrição:</label>
+
+            <input type="text"
+                   class="form-control"
+                   placeholder="Digite a descrição"
+                   name="descricao">
         </div>
+
         <div class="form-group">
-            <label for="fornecedor">Fornecedor:</label>
-            <input type="text" class="form-control" id="fornecedor" placeholder="Enter fornecedor" name="fornecedor">
+            <label>Fornecedor:</label>
+
+            <input type="text"
+                   class="form-control"
+                   placeholder="Digite o fornecedor"
+                   name="fornecedor">
         </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="disponivel" value="true"> Disponível</label>
+
+        <!-- 🔥 NOVA FUNCIONALIDADE -->
+        <div class="form-group">
+            <label>Unidade da Farmácia:</label>
+
+            <input type="text"
+                   class="form-control"
+                   placeholder="Ex: UBS Centro"
+                   name="unidadeFarmacia">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+
+        <!-- 🔥 DISPONIBILIDADE -->
+        <div class="form-group">
+            <label>Disponível:</label>
+            <br>
+
+            <input type="checkbox" name="disponivel">
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Cadastrar
+        </button>
+
     </form>
+
 </div>
 
 </body>
