@@ -3,6 +3,7 @@ package com.thiago.farme_check.controller;
 import org.springframework.ui.Model;
 import com.thiago.farme_check.entity.Medicamento;
 import com.thiago.farme_check.repository.MedicamentoRepository;
+import com.thiago.farme_check.service.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,9 @@ public class MedicamentoController {
 
     @Autowired
     MedicamentoRepository repository;
+
+    @Autowired
+    SmsService smsService;
 
     @GetMapping("/consulta-medicamento")
     public String pesquisa() {
@@ -42,12 +46,14 @@ public class MedicamentoController {
         medicamento.setPreco(preco);
         medicamento.setDescricao(descricao);
         medicamento.setFornecedor(fornecedor);
-
-        // 🔥 NOVOS CAMPOS
         medicamento.setUnidadeFarmacia(unidadeFarmacia);
         medicamento.setDisponivel(disponivel != null && disponivel);
 
         repository.save(medicamento);
+
+        if (medicamento.isDisponivel()) {
+            smsService.enviarNotificacaoSimulada("Paciente Teste", nome, unidadeFarmacia);
+        }
 
         return "cadastro-produto-sucesso";
     }
@@ -63,27 +69,22 @@ public class MedicamentoController {
         var medicamento = repository.findByNomeMedicamento(nome);
 
         if (medicamento != null) {
-
             if (medicamento.isDisponivel()) {
-
                 produtos.add(
                         "O medicamento " +
                                 medicamento.getNomeMedicamento() +
                                 " está disponível na unidade: " +
-                                medicamento.getUnidadeFarmacia()
+                                medicamento.getUnidadeFarmacia() +
+                                "\nNotificação SMS enviada."
                 );
-
             } else {
-
                 produtos.add(
                         "O medicamento " +
                                 medicamento.getNomeMedicamento() +
                                 " NÃO está disponível no momento."
                 );
             }
-
         } else {
-
             produtos.add("Medicamento não encontrado.");
         }
 
